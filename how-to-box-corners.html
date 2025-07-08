@@ -7,8 +7,8 @@
     <style>
         /* Base styles for the page */
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f7f7f7;
+            font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f9f5ff; /* Light purple background */
             margin: 0;
             padding: 0;
             line-height: 1.6;
@@ -18,36 +18,47 @@
             max-width: 800px;
             margin: 0 auto;
             background-color: #ffffff;
-            padding: 30px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-            border-radius: 12px;
-            overflow: hidden; /* Ensures rounded corners clip content */
+            padding: 0;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            border-radius: 16px;
+            overflow: hidden;
             margin-top: 30px;
             margin-bottom: 30px;
         }
         h1, h2, h3 {
             color: #9b046f; /* Brand color for headings */
             font-weight: 700;
-            margin-top: 1.5em;
-            margin-bottom: 0.8em;
         }
         h1 {
             font-size: 2.5em;
             text-align: center;
-            margin-bottom: 1em;
+            margin-bottom: 0.5em;
+            line-height: 1.2;
         }
         h2 {
             font-size: 2em;
-            border-bottom: 2px solid #f3f4f6;
+            position: relative;
             padding-bottom: 10px;
             margin-top: 2em;
+        }
+        h2:after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: #d8b4fe; /* Light purple accent */
+            border-radius: 2px;
         }
         h3 {
             font-size: 1.5em;
             color: #555555;
+            margin-bottom: 0.5em;
         }
         p {
-            margin-bottom: 1em;
+            margin-bottom: 1.2em;
+            font-size: 1.1em;
         }
         ul {
             list-style: none;
@@ -55,189 +66,349 @@
             margin: 0;
         }
         li {
-            margin-bottom: 1.5em;
+            margin-bottom: 1em;
+            position: relative;
+            padding-left: 30px;
+        }
+        li:before {
+            content: "•";
+            color: #9b046f;
+            font-size: 1.5em;
+            position: absolute;
+            left: 0;
+            top: -5px;
         }
         img {
             max-width: 100%;
             height: auto;
             display: block;
-            margin: 20px auto;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin: 25px auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        img:hover {
+            transform: scale(1.02);
         }
         .btn {
             display: inline-block;
             background-color: #9b046f;
             color: #ffffff;
-            padding: 15px 30px;
+            padding: 16px 32px;
             border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
             margin-top: 20px;
-            transition: background-color 0.3s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(155, 4, 111, 0.2);
+            font-size: 1.1em;
         }
         .btn:hover {
             background-color: #7a035a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(155, 4, 111, 0.3);
         }
         .text-center {
             text-align: center;
         }
         .step-number {
-            font-size: 1.8em;
-            color: #9b046f;
-            font-weight: 800;
-            margin-right: 10px;
+            display: inline-block;
+            background-color: #9b046f;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 36px;
+            font-weight: 700;
+            margin-right: 15px;
+            vertical-align: middle;
         }
         .step-content {
             display: flex;
-            align-items: flex-start;
-            margin-bottom: 30px;
+            align-items: center;
+            margin-bottom: 40px;
+            background-color: #faf5ff;
+            padding: 30px;
+            border-radius: 12px;
         }
-        .step-content div {
+        .step-content.reverse {
+            flex-direction: row-reverse;
+        }
+        .step-text {
             flex: 1;
+            padding-right: 30px;
         }
-        .step-content img {
-            max-width: 45%;
-            margin-left: 30px;
-            flex-shrink: 0;
+        .step-content.reverse .step-text {
+            padding-right: 0;
+            padding-left: 30px;
         }
-        .step-content.reverse img {
-            margin-left: 0;
-            margin-right: 30px;
+        .step-image {
+            flex: 1;
+            text-align: center;
+        }
+        .step-image img {
+            max-width: 100%;
+            margin: 0;
+        }
+        .pro-tip {
+            background-color: #f0e6ff;
+            border-left: 4px solid #9b046f;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+        .pro-tip strong {
+            color: #9b046f;
+        }
+        .hero {
+            background: linear-gradient(135deg, #9b046f 0%, #d8b4fe 100%);
+            color: white;
+            padding: 60px 30px;
+            text-align: center;
+        }
+        .hero h1 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 1.2em;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+        .content-wrapper {
+            padding: 40px;
+        }
+        .pattern-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .pattern-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .pattern-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        .pattern-card img {
+            border-radius: 12px 12px 0 0;
+            margin: 0;
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .pattern-info {
+            padding: 20px;
+        }
+        .pattern-info h3 {
+            margin-top: 0;
+            color: #9b046f;
+        }
+        .pattern-info p {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 15px;
+        }
+        .pattern-link {
+            color: #9b046f;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 0.9em;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .pattern-link:after {
+            content: "→";
+            margin-left: 5px;
+            transition: margin-left 0.2s ease;
+        }
+        .pattern-link:hover:after {
+            margin-left: 8px;
         }
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
             .container {
-                padding: 20px;
                 margin-top: 15px;
                 margin-bottom: 15px;
+                border-radius: 0;
             }
             h1 {
                 font-size: 2em;
             }
             h2 {
-                font-size: 1.5em;
+                font-size: 1.6em;
             }
             h3 {
-                font-size: 1.2em;
+                font-size: 1.3em;
             }
             .step-content {
                 flex-direction: column;
-                align-items: center;
+                padding: 20px;
             }
-            .step-content img {
-                max-width: 80%;
-                margin: 20px auto;
+            .step-content.reverse {
+                flex-direction: column;
             }
-            .step-content.reverse img {
-                margin: 20px auto;
+            .step-text {
+                padding: 0 !important;
+                margin-bottom: 20px;
+            }
+            .hero {
+                padding: 40px 20px;
+            }
+            .content-wrapper {
+                padding: 30px;
+            }
+            .pattern-grid {
+                grid-template-columns: 1fr;
             }
         }
         @media (max-width: 480px) {
-            .container {
-                padding: 15px;
-            }
             h1 {
                 font-size: 1.8em;
             }
             h2 {
-                font-size: 1.3em;
+                font-size: 1.4em;
             }
             .btn {
-                padding: 12px 25px;
-                font-size: 0.9em;
+                padding: 14px 28px;
+                font-size: 1em;
+                width: 100%;
+                text-align: center;
+            }
+            .content-wrapper {
+                padding: 20px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header/Logo -->
-        <div class="text-center" style="margin-bottom: 30px;">
-            <a href="https://bohoblanket.com" target="_blank" style="display: inline-block;">
-                <img src="https://preview.soundestlink.com/image/newsletter/66f83ca204f84665a8c8335c" alt="Boho Blanket Logo" style="height: 70px; width: auto; border-radius: 8px; margin: 0 auto;">
-            </a>
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1>Master the Finish: How to Box Cushion Corners Like a Pro!</h1>
+            <p>Elevate your sewing projects with crisp, professional boxed corners that add structure and polish to any project.</p>
+            <a href="#tutorial" class="btn">Jump to Tutorial</a>
         </div>
 
-        <h1>Master the Finish: How to Box Cushion Corners Like a Pro!</h1>
-
-        <p class="text-center" style="font-size: 1.1em; margin-bottom: 30px;">
-            Elevate your sewing projects with crisp, professional boxed corners. This essential technique will give your cushions, pillows, and bags a beautiful, structured finish.
-        </p>
-
-        <img src="https://thecraftyquilter.com/wp-content/uploads/2023/02/boxed-pillow-pincushion-stacked.jpg" alt="Example of a finished boxed corner" style="margin-bottom: 40px;">
-
-        <h2>What Are Boxed Corners?</h2>
-        <p>Boxed corners are a sewing technique used to create a flat, three-dimensional corner on items like cushions, tote bags, and pouches. Instead of a rounded or pointed corner, you get a neat, square edge that adds structure and a professional look to your finished project.</p>
-
-        <h2>Why Use Boxed Corners?</h2>
-        <ul>
-            <li><strong>Professional Finish:</strong> They give your projects a polished, store-bought quality.</li>
-            <li><strong>Adds Dimension:</strong> Perfect for cushions that need to sit neatly on a sofa or bags that need to stand upright.</li>
-            <li><strong>Prevents Floppiness:</strong> Say goodbye to saggy corners!</li>
-            <li><strong>Versatile Skill:</strong> Once you learn this, you'll find countless uses for it in various sewing projects.</li>
-        </ul>
-
-        <h2>Your Step-by-Step Guide:</h2>
-
-        <div class="step-content">
-            <div>
-                <h3><span class="step-number">1.</span> Prepare Your Project</h3>
-                <p>Start with your sewn cushion cover (or bag) that is inside out. All seams should be sewn, leaving an opening for turning or stuffing if necessary. Lay your project flat, ensuring the side seams and bottom seam are perfectly aligned at the corner.</p>
+        <div class="content-wrapper">
+            <!-- Logo -->
+            <div class="text-center" style="margin-bottom: 30px;">
+                <a href="https://bohoblanket.com" target="_blank" style="display: inline-block;">
+                    <img src="https://preview.soundestlink.com/image/newsletter/66f83ca204f84665a8c8335c" alt="Boho Blanket Logo" style="height: 70px; width: auto; border-radius: 8px; margin: 0 auto;">
+                </a>
             </div>
-            <img src="https://cdn.shopify.com/s/files/1/0806/5961/1983/files/1.jpg?v=1751966040" alt="Step 1: Prepare your project for boxing corners">
-        </div>
 
-        <div class="step-content reverse">
-            <img src="https://cdn.shopify.com/s/files/1/0806/5961/1983/files/2.jpg?v=1751966040" alt="Step 2: Measure and mark the corner">
-            <div>
-                <h3><span class="step-number">2.</span> Measure and Mark</h3>
-                <p>This is the key step! Pinch the corner so that the side seam and bottom seam are perfectly aligned on top of each other, forming a triangle. From the very tip of this triangle, measure inwards along the seam line. The distance you measure will determine the depth of your box. For a standard cushion, 1.5 to 2 inches (3.8 to 5 cm) is common. Mark a straight line perpendicular to the seam, creating a new "box" line.</p>
-                <p><strong>Pro Tip:</strong> Ensure your measurement is consistent on all corners for a symmetrical finish!</p>
+            <img src="https://thecraftyquilter.com/wp-content/uploads/2023/02/boxed-pillow-pincushion-stacked.jpg" alt="Example of a finished boxed corner" style="margin-bottom: 40px;">
+
+            <h2>Why Boxed Corners Make All the Difference</h2>
+            <p>Boxed corners are a game-changing sewing technique that transforms flat projects into dimensional masterpieces. Unlike rounded or pointed corners, boxed corners create structure and give your work a professional, store-bought quality.</p>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 20px; margin: 30px 0;">
+                <div style="flex: 1; min-width: 250px; background: #f9f5ff; padding: 20px; border-radius: 12px;">
+                    <h3 style="margin-top: 0; color: #9b046f;">Perfect for:</h3>
+                    <ul>
+                        <li>Throw pillows and cushions</li>
+                        <li>Tote bags and purses</li>
+                        <li>Pet beds and floor pillows</li>
+                        <li>Storage bins and organizers</li>
+                    </ul>
+                </div>
+                <div style="flex: 1; min-width: 250px; background: #f9f5ff; padding: 20px; border-radius: 12px;">
+                    <h3 style="margin-top: 0; color: #9b046f;">Benefits:</h3>
+                    <ul>
+                        <li>Creates professional-looking structure</li>
+                        <li>Prevents saggy, floppy corners</li>
+                        <li>Adds dimension to flat projects</li>
+                        <li>Makes items stand upright</li>
+                    </ul>
+                </div>
             </div>
-        </div>
 
-        <div class="step-content">
-            <div>
-                <h3><span class="step-number">3.</span> Stitch and Trim</h3>
-                <p>Carefully sew along the line you just marked. Backstitch at the beginning and end to secure the seam. Once sewn, trim the excess fabric from the corner, leaving about a 1/4 inch (6mm) seam allowance. This reduces bulk and helps the corner lay flat.</p>
+            <div class="pro-tip">
+                <strong>Designer Tip:</strong> The size of your box determines the depth of your corner. Smaller boxes (1-1.5") work well for bags, while larger boxes (2-3") create dramatic dimension for floor pillows.
             </div>
-            <img src="https://cdn.shopify.com/s/files/1/0806/5961/1983/files/3.jpg?v=1751966040" alt="Step 3: Stitch and trim the corner">
-        </div>
 
-        <div class="step-content reverse">
-            <img src="https://cdn.shopify.com/s/files/1/0806/5961/1983/files/4.jpg?v=1751966039" alt="Step 4: Turn and reveal the boxed corner">
-            <div>
-                <h3><span class="step-number">4.</span> The Big Reveal!</h3>
-                <p>Now for the satisfying part! Turn your cushion cover (or bag) right side out. Use a point turner or your fingers to gently push out the new boxed corners. Press them flat with an iron for a super crisp finish. You'll be amazed at the professional look you've achieved!</p>
+            <h2 id="tutorial">Step-by-Step Tutorial</h2>
+            <p>Follow these simple steps to achieve perfect boxed corners every time. We'll use a cushion cover as our example, but the technique works for any project!</p>
+
+            <div class="step-content">
+                <div class="step-text">
+                    <h3><span class="step-number">1</span> Prepare Your Project</h3>
+                    <p>Start with your sewn cushion cover inside out. All seams should be complete except for your turning/ stuffing opening. Lay the project flat and align the side and bottom seams perfectly at the corner you'll be boxing.</p>
+                    <p><strong>Key Point:</strong> Ensure your seams are pressed flat before beginning for the most accurate results.</p>
+                </div>
+                <div class="step-image">
+                    <img src="https://cdn.shopify.com/s/files/1/0806/5961/1983/files/1.jpg?v=1751966040" alt="Step 1: Prepare your project for boxing corners">
+                </div>
             </div>
-        </div>
 
-        <p class="text-center" style="font-size: 1.1em; margin-top: 40px;">
-            It’s easier than you think, and the results are incredibly satisfying!
-        </p>
+            <div class="step-content reverse">
+                <div class="step-image">
+                    <img src="https://cdn.shopify.com/s/files/1/0806/5961/1983/files/2.jpg?v=1751966040" alt="Step 2: Measure and mark the corner">
+                </div>
+                <div class="step-text">
+                    <h3><span class="step-number">2</span> Measure and Mark</h3>
+                    <p>Pinch the corner so side and bottom seams align perfectly, forming a triangle. From the tip, measure inward along the seam (this determines your box depth). Mark a straight line perpendicular to the seam.</p>
+                    <div class="pro-tip">
+                        <strong>Measurement Guide:</strong><br>
+                        • Small bags: 1-1.5" (2.5-3.8cm)<br>
+                        • Standard cushions: 1.5-2" (3.8-5cm)<br>
+                        • Floor pillows: 2-3" (5-7.5cm)
+                    </div>
+                </div>
+            </div>
 
-        <div class="text-center" style="margin-top: 40px;">
-            <p style="font-size: 1.2em; font-weight: 600; color: #555555;">Ready to apply this skill to your next project?</p>
-            <a href="https://bohoblanket.com/collections/patterns" target="_blank" class="btn">
-                Explore Boho Blanket Patterns!
-            </a>
-        </div>
+            <div class="step-content">
+                <div class="step-text">
+                    <h3><span class="step-number">3</span> Stitch and Trim</h3>
+                    <p>Sew along your marked line with a 1/4" seam allowance. Backstitch at both ends. Trim the excess fabric, leaving about 1/4" seam allowance. For heavy fabrics, grade the seams by trimming one layer shorter than the other.</p>
+                    <p><strong>Pro Finish:</strong> Notch the corner (cut a small triangle out of the seam allowance) to reduce bulk and help the corner lay flat when turned.</p>
+                </div>
+                <div class="step-image">
+                    <img src="https://cdn.shopify.com/s/files/1/0806/5961/1983/files/3.jpg?v=1751966040" alt="Step 3: Stitch and trim the corner">
+                </div>
+            </div>
 
-        <!-- Footer -->
-        <div class="text-center" style="margin-top: 50px; padding-top: 20px; border-top: 1px solid #eeeeee; font-size: 0.9em; color: #777777;">
-            <p style="margin-bottom: 10px;">Happy Quilting from the Team at Boho Blanket!</p>
-            <p>
-                <a href="https://bohoblanket.com" target="_blank" style="color: #9b046f; text-decoration: none;">bohoblanket.com</a>
-                &nbsp;|&nbsp;
-                <a href="#" target="_blank" style="color: #9b046f; text-decoration: none;">Facebook</a>
-                &nbsp;|&nbsp;
-                <a href="#" target="_blank" style="color: #9b046f; text-decoration: none;">Instagram</a>
-                &nbsp;|&nbsp;
-                <a href="#" target="_blank" style="color: #9b046f; text-decoration: none;">Pinterest</a>
-            </p>
-            <p>&copy; 2025 Boho Blanket. All rights reserved.</p>
+            <div class="step-content reverse">
+                <div class="step-image">
+                    <img src="https://cdn.shopify.com/s/files/1/0806/5961/1983/files/4.jpg?v=1751966039" alt="Step 4: Turn and reveal the boxed corner">
+                </div>
+                <div class="step-text">
+                    <h3><span class="step-number">4</span> The Big Reveal!</h3>
+                    <p>Turn your project right side out. Gently push out the corners using a point turner or blunt tool. Press thoroughly with an iron for crisp edges. Admire your professional-looking boxed corners!</p>
+                    <div class="pro-tip">
+                        <strong>Troubleshooting:</strong> If corners look puckered, try clipping the seam allowance closer to the stitching or pressing more thoroughly with steam.
+                    </div>
+                </div>
+            </div>
+
+           
+
+            <div class="text-center" style="margin-top: 40px;">
+                <p style="font-size: 1.2em; font-weight: 600; color: #555555;">Ready to create something beautiful?</p>
+                <a href="https://bohoblanket.com/collections/patterns" target="_blank" class="btn">
+                    Explore All Boho Blanket Patterns
+                </a>
+            </div>
+
+            <!-- Footer -->
+            <div class="text-center" style="margin-top: 50px; padding-top: 30px; border-top: 1px solid #eeeeee; font-size: 0.9em; color: #777777;">
+                <p style="margin-bottom: 10px; font-size: 1.1em;">Happy Quilting from the Team at Boho Blanket!</p>
+                <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 20px;">
+                    <a href="https://bohoblanket.com" target="_blank" style="color: #9b046f; text-decoration: none; font-weight: 600;">Website</a>
+                    <a href="#" target="_blank" style="color: #9b046f; text-decoration: none; font-weight: 600;">Facebook</a>
+                    <a href="#" target="_blank" style="color: #9b046f; text-decoration: none; font-weight: 600;">Instagram</a>
+                    <a href="#" target="_blank" style="color: #9b046f; text-decoration: none; font-weight: 600;">Pinterest</a>
+                </div>
+                <p>&copy; 2025 Boho Blanket. All rights reserved.</p>
+            </div>
         </div>
     </div>
 </body>
